@@ -1,3 +1,0 @@
-C:/saya/cpplibs/cmake-build-debug/CMakeFiles/libinfo.dir
-C:/saya/cpplibs/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/saya/cpplibs/cmake-build-debug/CMakeFiles/rebuild_cache.dir
