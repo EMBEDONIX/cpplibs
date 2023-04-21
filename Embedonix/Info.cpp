@@ -2,7 +2,7 @@
 // Created by Saeid Yazdani on 4/19/2023.
 //
 
-#include "LibInfo.h"
+#include "Info.h"
 
 namespace embedonix {
   std::string libraryVersion() {return "0.1.0";}
