@@ -1,0 +1,56 @@
+//
+// Created by Saeid Yazdani on 4/23/2023.
+//
+
+#include <embedonix/simplelibs/filereader.h>
+#include <fstream>
+#include <cstring>
+
+namespace embedonix::simplelibs::fileio::readers {
+
+std::vector<std::byte> read_file_bytes(std::string_view filepath) {
+    std::ifstream ifs(filepath.data(), std::ios::binary | std::ios::ate);
+
+    if (!ifs)
+        throw std::ios_base::failure("File does not exist");
+
+    auto end = ifs.tellg();
+    ifs.seekg(0, std::ios::beg);
+
+    auto size = std::size_t(end - ifs.tellg());
+
+    if (size == 0) // avoid undefined behavior
+        return {};
+
+    std::vector<std::byte> buffer(size);
+
+    if (!ifs.read((char *) buffer.data(), buffer.size()))
+        throw std::ios_base::failure("Read error");
+
+    return buffer;
+}
+
+auto read_file(std::string_view path) -> std::string {
+    constexpr auto read_size = std::size_t(4096);
+    auto stream = std::ifstream(path.data());
+    stream.exceptions(std::ios_base::badbit);
+
+    if (not stream) {
+        throw std::ios_base::failure("File does not exist");
+    }
+
+    auto out = std::string();
+    auto buf = std::string(read_size, '\0');
+    while (stream.read(& buf[0], read_size)) {
+        out.append(buf, 0, stream.gcount());
+    }
+    out.append(buf, 0, stream.gcount());
+    return out;
+}
+
+std::string read_file_string(std::string_view filepath) {
+    auto bytes = read_file_bytes(filepath);
+    return std::string(reinterpret_cast<char *>(bytes.begin().base()), bytes.size());
+}
+
+} // End Namespace embedonix::simplelibs::fileio::readers
