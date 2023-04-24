@@ -8,7 +8,7 @@
 
 namespace embedonix::simplelibs::fileio::readers {
 
-std::vector<std::byte> read_file_bytes(std::string_view filepath) {
+auto read_file_bytes(std::string_view filepath) -> std::vector<std::byte> {
     std::ifstream ifs(filepath.data(), std::ios::binary | std::ios::ate);
 
     if (!ifs)
@@ -48,7 +48,7 @@ auto read_file(std::string_view path) -> std::string {
     return out;
 }
 
-std::string read_file_string(std::string_view filepath) {
+auto read_file_string(std::string_view filepath) -> std::string {
     auto bytes = read_file_bytes(filepath);
     return std::string(reinterpret_cast<char *>(bytes.begin().base()), bytes.size());
 }
