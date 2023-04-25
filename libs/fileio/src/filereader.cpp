@@ -50,7 +50,7 @@ auto read_file(std::string_view path) -> std::string {
 
 auto read_file_string(std::string_view filepath) -> std::string {
     auto bytes = read_file_bytes(filepath);
-    return std::string(reinterpret_cast<char *>(bytes.begin().base()), bytes.size());
+    return std::string(reinterpret_cast<char *>(&bytes[0]), bytes.size());
 }
 
 } // End Namespace embedonix::simplelibs::fileio::readers

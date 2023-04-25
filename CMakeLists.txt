@@ -14,7 +14,7 @@ endif ()
 project(embedonix_simplelibs
         VERSION 0.1.0 # https://semver.org/spec/v0.1.0.html
         DESCRIPTION "Collection of simple yet useful C++ libraries by EMBEDONIX"
-        # https://www.embedonix.com ""
+        HOMEPAGE_URL https://www.embedonix.com
         LANGUAGES CXX
         )
 
