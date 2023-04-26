@@ -18,9 +18,6 @@ project(embedonix_simplelibs
         LANGUAGES CXX
         )
 
-# Where to install libraries and headers
-set(CMAKE_INSTALL_PREFIX F:/Embedonix/SimpleLibs)
-
 # Add library subfodlers to compile
 add_subdirectory(./libs/parsers)
 add_subdirectory(./libs/fileio)
