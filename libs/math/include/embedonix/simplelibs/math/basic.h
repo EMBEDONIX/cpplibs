@@ -9,22 +9,15 @@
 /**
  * @brief Contains basic math operations
  */
-namespace embedonix::simplelibs::math::basicoperations {
-
-template<class T>
-concept IntegralNumber = std::is_integral_v<T>;
+namespace embedonix::simplelibs::math::basic_operations {
 
 /**
- * @brief Adds two values
- * @tparam T Value Type
- * @param lhs First (left side) argument
- * @param rhs Second (right side) argument
- * @return Values Added together
+ * Check if a value type is an integer.
+ * @note bool is an integer by design, so I explicitly exlude it.
+ * @tparam T Type to check
  */
-template<typename T>
-T addValues(const T &lhs, const T &rhs) {
-  return (lhs + rhs);
-}
+template<class T>
+concept IntegralNumber = std::is_integral_v<T> and not std::same_as<T, bool>;
 
 /**
  * Check if a numeric value is even.
@@ -32,18 +25,18 @@ T addValues(const T &lhs, const T &rhs) {
  * @param t value of the parameter
  * @return true if value is even
  */
-template<IntegralNumber T>
- constexpr bool isEven(T t) {
-  return ((t % 2) == 0);
+constexpr bool isEven(IntegralNumber auto num) {
+  return ((num % 2) == 0);
 }
 
-template<IntegralNumber T>
-constexpr bool isOdd(T t) {
-  return (not isEven(t));
+/**
+ * Check if a numeric value is odd.
+ * @tparam T Type of the parameter
+ * @param t value of the parameter
+ * @return true if value is odd
+ */
+constexpr bool isOdd(IntegralNumber auto num) {
+  return ((num % 2) not_eq 0);
 }
 
- bool isEven(bool) = delete; // Do not allow bool to be used as argument
-
- bool isOdd(bool) = delete; // Do not allow bool to be used as argument
-
-}
+} // End Namespace embedonix::simplelibs::math::basic_operations

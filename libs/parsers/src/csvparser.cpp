@@ -13,22 +13,23 @@
 namespace embedonix::simplelibs::parsers {
 
 std::vector<std::vector<std::string>> parseCsvFile(std::string_view source,
-                                                   char delimeter) {
+                                                   char delimiter) {
   /*
    * This parser should follow the guideline here
    * https://www.rfc-editor.org/rfc/rfc4180#page-2
    */
 
+  std::istringstream source_stream(source.data()); // Content to be parsed
   auto result = std::vector<std::vector<std::string>>(); // To save results
-  std::istringstream source_stream(source.data());
+
 
   for (std::string line;
        std::getline(source_stream, line);
-    /* No terminate cond */) {
+    /* no condition */) { // Now we have a line
     std::istringstream stream(line);
     std::string token;
     std::vector<std::string> lineVector;
-    while (std::getline(stream, token, delimeter)) {
+    while (std::getline(stream, token, delimiter)) { // Parse line
       lineVector.push_back(token);
     }
     result.push_back(lineVector);
@@ -38,7 +39,8 @@ std::vector<std::vector<std::string>> parseCsvFile(std::string_view source,
 }
 
 std::vector<std::vector<std::string>>
-parseWrappedCsvFile(std::string_view source, char delimeter, char wrapper) {
+parseWrappedCsvFile(std::string_view source, char delimiter, char wrapper) {
+
   auto result = std::vector<std::vector<std::string>>(); // To save results
   std::istringstream source_stream(source.data());
 
@@ -50,21 +52,24 @@ parseWrappedCsvFile(std::string_view source, char delimeter, char wrapper) {
     // Make sure we have even number of wrapper characters
     auto numWrappersPerLine = std::count(line.begin(), line.end(),
                                          wrapper);
-    if (not math::basicoperations::isEven(numWrappersPerLine)) {
+    if (not math::basic_operations::isEven(numWrappersPerLine)) {
       auto msg = std::string("Invalid wrapper character count at line ") +
                  std::string(std::to_string(currentLineNumber));
       throw std::runtime_error(msg.c_str());
     }
 
-    std::istringstream stream(line);
-    std::string token;
-    std::vector<std::string> lineVector;
-    while (std::getline(stream, token, delimeter)) {
-      lineVector.push_back(token);
+    auto stream = std::istringstream(line);
+    auto token = std::string(); // To be filled by getline()
+    auto choppedValues = std::vector<std::string>(); // to contain parts
+
+    // TODO Check between wrapper characters to see there is any delimiter!
+    while (std::getline(stream, token, delimiter)) {
+      choppedValues.push_back(token);
     }
-    result.push_back(lineVector);
+
+    result.push_back(choppedValues);
   }
 
   return result;
 }
-} // End namespace embedonix::simplelibs::io::parsers
+} // End Namespace embedonix::simplelibs::parsers
