@@ -18,6 +18,6 @@ auto read_file_bytes(std::string_view filepath) -> std::vector<std::byte>;
 
 auto read_file(std::string_view path) -> std::string;
 
-auto read_file_string(std::string_view filepath) -> std::string ;
+auto read_file_string(std::string_view filepath) -> std::string;
 
 } // End Namespace embedonix::simplelibs::fileio::readers

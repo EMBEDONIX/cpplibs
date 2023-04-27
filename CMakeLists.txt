@@ -19,9 +19,9 @@ project(embedonix_simplelibs
         )
 
 # Add library subfodlers to compile
+add_subdirectory(./libs/math)
 add_subdirectory(./libs/parsers)
 add_subdirectory(./libs/fileio)
-
 
 # Some good sources to read
 #https://stackoverflow.com/questions/2152077/is-it-possible-to-get-cmake-to-build-both-a-static-and-shared-library-at-the-sam

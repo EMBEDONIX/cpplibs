@@ -8,20 +8,14 @@ cmake_minimum_required(VERSION 3.5...3.20)
 project(embedonix_simplelibs_parsers VERSION 0.1.0 LANGUAGES CXX)
 
 # Add library to be compiled
-add_library(embedonix_simplelibs_parsers
-        src/csvparser.cpp)
-add_library(embedonix::simplelibs::parsers ALIAS embedonix_simplelibs_parsers)
+add_library(embedonix_simplelibs_math INTERFACE
+        ./include/embedonix/simplelibs/math/basic.h)
+add_library(embedonix::simplelibs::math ALIAS embedonix_simplelibs_math)
 
-target_compile_features(embedonix_simplelibs_parsers PUBLIC cxx_std_20)
-target_include_directories(embedonix_simplelibs_parsers PUBLIC include)
+#target_compile_features(embedonix_simplelibs_math INTERFACE cxx_std_20)
+#target_include_directories(embedonix_simplelibs_math INTERFACE include)
 
-target_link_libraries(embedonix_simplelibs_parsers
-        PUBLIC embedonix_simplelibs_math)
-target_include_directories(embedonix_simplelibs_parsers
-        PUBLIC "${CMAKE_SOURCE_DIR}/libs/math/include")
-
-
-install(TARGETS embedonix_simplelibs_parsers
+install(TARGETS embedonix_simplelibs_math
         # CONFIGURATIONS Debug ## Commented out because I want same for both releaes and debug
         DESTINATION /) # will be root of cmake install prefix
 
