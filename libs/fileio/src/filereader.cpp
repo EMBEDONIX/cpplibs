@@ -4,7 +4,6 @@
 
 #include "embedonix/simplelibs/fileio/filereader.h"
 #include <fstream>
-#include <cstring>
 
 namespace embedonix::simplelibs::fileio::readers {
 
