@@ -43,7 +43,7 @@ std::string right_trim_copy(std::string s);
 /**
  * Trim copy of a string from both side
  * @param s The string to be trimmed
- * @return Right trimmed copy of the string
+ * @return Trimmed copy of the string
  */
 std::string trim_copy(std::string s);
 
