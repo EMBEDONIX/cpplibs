@@ -11,6 +11,8 @@ if (CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR AND NOT CMAKE_BUILD_TYPE 
     set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release" "MinSizeRel" "RelWithDebInfo")
 endif ()
 
+set(CMAKE_CXX_STANDARD 20)
+
 project(embedonix_simplelibs
         VERSION 0.1.0 # https://semver.org/spec/v0.1.0.html
         DESCRIPTION "Collection of simple yet useful C++ libraries by EMBEDONIX"
@@ -20,8 +22,10 @@ project(embedonix_simplelibs
 
 # Add library subfodlers to compile
 add_subdirectory(./libs/math)
-add_subdirectory(./libs/parsers)
 add_subdirectory(./libs/fileio)
+add_subdirectory(./libs/parsers)
+add_subdirectory(./libs/stringtools)
+
 
 # Some good sources to read
 #https://stackoverflow.com/questions/2152077/is-it-possible-to-get-cmake-to-build-both-a-static-and-shared-library-at-the-sam

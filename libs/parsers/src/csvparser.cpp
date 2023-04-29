@@ -3,7 +3,7 @@
 //
 
 #include <sstream>
-
+#include <algorithm>
 
 #include "embedonix/simplelibs/parsers/csvparser.h"
 #include <embedonix/simplelibs/math/basic.h>
@@ -47,14 +47,52 @@ parseWrappedCsvFile(std::string_view source, char delimiter, char wrapper) {
        std::getline(source_stream, line);
        ++currentLineNumber) {
 
-    // Make sure we have even number of wrapper characters
+    /* RFC-4180 -> If double-quotes are used to enclose fields, then a
+     * double-quote appearing inside a field must be escaped by preceding it
+     * with another double quote.
+     * Example - Lets say a field should be:
+     *
+     * item,name,price
+     * "monitor","SAMSUNG UL2780 27""","270$"
+     *
+     */
+
+
     auto numWrappersPerLine = std::count(line.begin(), line.end(),
                                          wrapper);
-    if (not math::basic_operations::isEven(numWrappersPerLine)) {
-      auto msg = std::string("Invalid wrapper character count at line ") +
-                 std::string(std::to_string(currentLineNumber));
-      throw std::runtime_error(msg.c_str());
+
+
+    /*
+     * looking for end of a field and beginning of next field
+     * it should be like
+     * example 1          : "ab","cd"
+     * double-quoutes     : ↑--↑-↑--↑
+     * char index         : 012345678
+     * string size        : 123456789
+     *
+     */
+
+    // Find position of all wrappers (e.g. double-qoutes)
+    auto wrapperPositions = std::vector<int>();
+    for (auto i = 0; i < line.size(); ++i) {
+      if(line[i] == wrapper) {
+        wrapperPositions.push_back(i);
+      }
     }
+
+    auto chunks = std::vector<std::string>();
+    for (auto pos = 0; pos < line.size(); ++pos) {
+      if(line[pos] == wrapper) {
+        int nextWrapperPos = line.find("\",", pos); // find closing wrapper
+        if(nextWrapperPos not_eq std::string::npos) {
+          chunks.push_back({line[pos], line[nextWrapperPos]});
+        }
+      }
+    }
+
+
+
+
 
     auto stream = std::istringstream(line);
     auto token = std::string(); // To be filled by getline()
