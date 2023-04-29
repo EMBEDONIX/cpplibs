@@ -75,23 +75,20 @@ parseWrappedCsvFile(std::string_view source, char delimiter, char wrapper) {
     // Find position of all wrappers (e.g. double-qoutes)
     auto wrapperPositions = std::vector<int>();
     for (auto i = 0; i < line.size(); ++i) {
-      if(line[i] == wrapper) {
+      if (line[i] == wrapper) {
         wrapperPositions.push_back(i);
       }
     }
 
     auto chunks = std::vector<std::string>();
     for (auto pos = 0; pos < line.size(); ++pos) {
-      if(line[pos] == wrapper) {
+      if (line[pos] == wrapper) {
         int nextWrapperPos = line.find("\",", pos); // find closing wrapper
-        if(nextWrapperPos not_eq std::string::npos) {
+        if (nextWrapperPos not_eq std::string::npos) {
           chunks.push_back({line[pos], line[nextWrapperPos]});
         }
       }
     }
-
-
-
 
 
     auto stream = std::istringstream(line);

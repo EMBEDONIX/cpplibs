@@ -12,19 +12,19 @@ namespace embedonix::simplelibs::stringtools {
  * Trim a string from left side
  * @param s
  */
-void left_trim(std::string &s);
+void left_trim(std::string& s);
 
 /**
  * Trim a string from right side
  * @param s
  */
-void right_trim(std::string &s);
+void right_trim(std::string& s);
 
 /**
  * Trim a string from both side
  * @param s String to be trimmed
  */
-void trim(std::string &s);
+void trim(std::string& s);
 
 /**
  * Trim copy of a string from left side
