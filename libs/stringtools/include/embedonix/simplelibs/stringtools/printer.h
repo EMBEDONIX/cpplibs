@@ -16,13 +16,13 @@ namespace embedonix::simplelibs::stringtools {
  * @tparam SEPARATOR Type of printable to be put between each element when
  * printing
  * @param container Container to print
- * @param separator A Character or string to separate each element
+ * @param delimiter A Character or string to separate each element
  * @param addNewLine Add a new line when done printing
  * @param os The stream to print into
  */
 
 template<class CONTAINER, typename DELIMITER = char>
-void print_container(const CONTAINER& container, DELIMITER separator = ' ',
+void print_container(const CONTAINER& container, DELIMITER delimiter = ' ',
                      bool addNewLine = true,
                      std::ostream& os = std::cout) {
   auto it = std::begin(container);
@@ -31,7 +31,7 @@ void print_container(const CONTAINER& container, DELIMITER separator = ' ',
   if (it != end) { // There is at least one element available :)
     os << *it; // Print first element
     for (++it; it != end; ++it) { // Print the rest, if available
-      os << separator << *it;
+      os << delimiter << *it;
     }
     if(addNewLine) {
       os << std::endl;
