@@ -12,8 +12,7 @@ namespace embedonix::simplelibs::stringtools {
 /**
  * Prints all elements of a container to stdout
  * @tparam CONTAINER A Container compatible with std containers
- * @tparam ELEMENT_TYPE Type of the element in the container
- * @tparam SEPARATOR Type of printable to be put between each element when
+ * @tparam DELIMITER Type of printable to be put between each element when
  * printing
  * @param container Container to print
  * @param delimiter A Character or string to separate each element
