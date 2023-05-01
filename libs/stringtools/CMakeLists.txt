@@ -10,6 +10,7 @@ project(embedonix_simplelibs_stringtools VERSION 0.1.0 LANGUAGES CXX)
 # Add library to be compiled
 add_library(embedonix_simplelibs_stringtools
         src/trim.cpp
+        include/embedonix/simplelibs/stringtools/base.h
         include/embedonix/simplelibs/stringtools/printer.h)
 add_library(embedonix::simplelibs::stringtools ALIAS embedonix_simplelibs_stringtools)
 
