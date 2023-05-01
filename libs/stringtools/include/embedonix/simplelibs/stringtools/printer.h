@@ -38,5 +38,4 @@ void print_container(const CONTAINER& container, DELIMITER delimiter = ' ',
   }
 }
 
-
 } // End namespace embedonix::simplelibs::stringtools
