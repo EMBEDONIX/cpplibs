@@ -25,7 +25,7 @@ concept IntegralNumber = std::is_integral_v<T> and not std::same_as<T, bool>;
  * @param t value of the parameter
  * @return true if value is even
  */
-constexpr bool isEven(IntegralNumber auto num) {
+constexpr bool is_even(IntegralNumber auto num) {
   return ((num % 2) == 0);
 }
 
@@ -35,7 +35,7 @@ constexpr bool isEven(IntegralNumber auto num) {
  * @param t value of the parameter
  * @return true if value is odd
  */
-constexpr bool isOdd(IntegralNumber auto num) {
+constexpr bool is_odd(IntegralNumber auto num) {
   return ((num % 2) not_eq 0);
 }
 

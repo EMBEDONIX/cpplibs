@@ -10,8 +10,8 @@
 
 namespace embedonix::simplelibs::parsers {
 
-std::vector<std::vector<std::string>> parseCsvFile(std::string_view source,
-                                                   char delimiter) {
+std::vector<std::vector<std::string>> csv_file(std::string_view source,
+                                               char delimiter) {
   /*
    * This parser should follow the guideline here
    * https://www.rfc-editor.org/rfc/rfc4180#page-2
@@ -37,7 +37,7 @@ std::vector<std::vector<std::string>> parseCsvFile(std::string_view source,
 }
 
 std::vector<std::vector<std::string>>
-parseWrappedCsvFile(std::string_view source, char delimiter, char wrapper) {
+csv_file_with_wrapper(std::string_view source, char delimiter, char wrapper) {
 
   auto result = std::vector<std::vector<std::string>>(); // To save results
   std::istringstream source_stream(source.data());

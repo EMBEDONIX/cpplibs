@@ -11,15 +11,15 @@ namespace embedonix::simplelibs::parsers {
 /**
  * Parse a Character Separated Value (default delimiter is comma ',').
  * @note If elements are wrapped with a pair of characters, please use \
- * <code>parseWrappedCsvFile()</code>.
+ * <code>csv_file_with_wrapper()</code>.
  * @param source The content to parse.
  * @param delimiter The separator which separates elements (default is
  * a comma).
  * @param valueWrapper The character that wraps elements (default is none).
  * @return Parsed values as vector of string vector
  */
-std::vector<std::vector<std::string>> parseCsvFile(std::string_view source,
-                                                   char delimiter = ',');
+std::vector<std::vector<std::string>> csv_file(std::string_view source,
+                                               char delimiter = ',');
 
 /**
  * Parse a Character Separated Value (default delimiter is comma ',') where
@@ -34,7 +34,7 @@ std::vector<std::vector<std::string>> parseCsvFile(std::string_view source,
  * @param wrapper The character that wraps elements (default is none).
  * @return Parsed values as vector of string vector
  */
-std::vector<std::vector<std::string>> parseWrappedCsvFile(
+std::vector<std::vector<std::string>> csv_file_with_wrapper(
     std::string_view
     source,
     char delimiter = ',',
