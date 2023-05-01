@@ -24,7 +24,7 @@ template
     <
         template<typename...> typename CONTAINER,
         typename ELEMENT_TYPE,
-        typename SEPARATOR
+        typename SEPARATOR = char // need the hint for default parameter type
     >
 void print_container(const CONTAINER<ELEMENT_TYPE>& container,
                      SEPARATOR separator = ' ',
