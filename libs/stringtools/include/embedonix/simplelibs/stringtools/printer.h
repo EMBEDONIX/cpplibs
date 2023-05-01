@@ -11,11 +11,14 @@ namespace embedonix::simplelibs::stringtools {
 
 /**
  * Prints all elements of a container to stdout
- * @tparam CONTAINER
- * @tparam ELEMENT_TYPE
- * @tparam SEPARATOR
- * @param container
- * @param separator
+ * @tparam CONTAINER A Container compatible with std containers
+ * @tparam ELEMENT_TYPE Type of the element in the container
+ * @tparam SEPARATOR Type of printable to be put between each element when
+ * printing
+ * @param container Container to print
+ * @param separator A Character or string to separate each element
+ * @param addNewLineAtEnd Add a new line when done printing
+ * @param stream The stream to print into
  */
 template
     <
@@ -25,7 +28,8 @@ template
     >
 void print_container(const CONTAINER<ELEMENT_TYPE>& container,
                      SEPARATOR separator = ' ',
-                     FILE *stream = stdout) {
+                     bool addNewLineAtEnd = true,
+                     std::ostream& stream = std::cout) {
 
   // Keep track of how many elements have been printed out
   typename CONTAINER<ELEMENT_TYPE>::size_type index = 0;
@@ -33,18 +37,17 @@ void print_container(const CONTAINER<ELEMENT_TYPE>& container,
   typename CONTAINER<ELEMENT_TYPE>::size_type lastIndex = container.size() - 1;
 
   for (const auto& element: container) {
-    if (stream == stdout) {
-      std::cout << element;
-      if (index < lastIndex) {
-        std::cout << separator;
-      }
-    } else if (stream == stderr) {
-      std::cerr << element;
-      if (index < lastIndex) {
-        std::cerr << separator;
-      }
+    stream << element;
+    if (index < lastIndex) { // If not the last element, add separator
+      stream << separator;
     }
     index++;
   }
+
+  if (addNewLineAtEnd) {
+    stream << std::endl;
+  }
+
 }
+
 } // End namespace embedonix::simplelibs::stringtools
