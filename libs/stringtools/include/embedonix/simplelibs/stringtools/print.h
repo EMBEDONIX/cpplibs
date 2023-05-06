@@ -7,10 +7,10 @@
 #include <iostream>
 #include <ranges>
 
-namespace embedonix::simplelibs::stringtools {
+namespace embedonix::simplelibs::stringtools::print {
 
 /**
- * Prints all elements of a container to stdout
+ * Prints all elements of a container to an stream (stdout by default)
  * @tparam CONTAINER A Container compatible with std containers
  * @tparam DELIMITER Type of printable to be put between each element when
  * printing
@@ -21,7 +21,7 @@ namespace embedonix::simplelibs::stringtools {
  */
 
 template<class CONTAINER, typename DELIMITER = char>
-void print_container(const CONTAINER& container, DELIMITER delimiter = ' ',
+void container(const CONTAINER& container, DELIMITER delimiter = ' ',
                      bool addNewLine = true,
                      std::ostream& os = std::cout) {
   auto it = std::begin(container);

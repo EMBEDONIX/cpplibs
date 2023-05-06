@@ -38,5 +38,6 @@ std::vector<std::vector<std::string>> csv_file_with_wrapper(
     std::string_view
     source,
     char delimiter = ',',
-    char wrapper = '"');
+    char wrapper = '"',
+    bool skipHeader = true);
 }
