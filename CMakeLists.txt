@@ -13,6 +13,9 @@ endif ()
 
 set(CMAKE_CXX_STANDARD 20)
 
+option(BUILD_EXAMPLES "Build examples" ON)
+
+
 project(embedonix_simplelibs
         VERSION 0.1.0 # https://semver.org/spec/v0.1.0.html
         DESCRIPTION "Collection of simple yet useful C++ libraries by EMBEDONIX"
@@ -25,6 +28,10 @@ add_subdirectory(./libs/math)
 add_subdirectory(./libs/fileio)
 add_subdirectory(./libs/parsers)
 add_subdirectory(./libs/stringtools)
+
+if(BUILD_EXAMPLES)
+    add_subdirectory(./examples)
+endif()
 
 
 # Some good sources to read

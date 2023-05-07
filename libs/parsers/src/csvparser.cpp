@@ -64,7 +64,7 @@ csv_file_with_wrapper(std::string_view source, char delimiter, char wrapper,
 
     auto line = stringtools::trim::both_sides_copy(lineToParse);
     // Save first line
-    if(firstLineCopy.size() == 0) {firstLineCopy = line;}
+    if (firstLineCopy.size() == 0) { firstLineCopy = line; }
 
     // Find position of all wrappers (e.g. double-qoutes)
     auto wrappers = std::vector<size_type>(); // default is '"' double-qoute
