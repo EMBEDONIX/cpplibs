@@ -90,7 +90,7 @@ csv_file_with_wrapper(std::string_view source, char delimiter, char wrapper,
       }
     }
 
-    auto chunks = std::vector<std::string/*_view*/>();
+    auto chunks = std::vector<std::string>();
 
     // If there are no delimiters on the line, means CSV has 1 field per line :)
     if (delimiters.empty()) {
