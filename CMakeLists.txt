@@ -28,6 +28,7 @@ add_subdirectory(./libs/math)
 add_subdirectory(./libs/fileio)
 add_subdirectory(./libs/parsers)
 add_subdirectory(./libs/stringtools)
+add_subdirectory(./libs/utilities)
 
 if(BUILD_EXAMPLES)
     add_subdirectory(./examples)
