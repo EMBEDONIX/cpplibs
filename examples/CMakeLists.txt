@@ -16,3 +16,8 @@ target_link_libraries(csvparsers PRIVATE embedonix_simplelibs_parsers
                                  PRIVATE embedonix_simplelibs_stringtools)
 target_include_directories(csvparsers PUBLIC "F:\\Embedonix\\simplelibs-dbg\\include")
 
+add_executable(math
+        math/math.cpp)
+target_link_directories(math PRIVATE "F:\\Embedonix\\simplelibs-dbg")
+target_link_libraries(math PRIVATE embedonix_simplelibs_math)
+target_include_directories(math PUBLIC "F:\\Embedonix\\simplelibs-dbg\\include")
