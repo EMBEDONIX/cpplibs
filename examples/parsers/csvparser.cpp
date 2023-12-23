@@ -32,7 +32,5 @@ int main(int argc, char **args) {
     for(const auto& row : data)
     stringtools::print::container(row, ',');
 
-
-
     return 0;
 }
