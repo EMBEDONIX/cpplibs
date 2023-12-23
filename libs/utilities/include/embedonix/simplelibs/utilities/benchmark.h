@@ -8,12 +8,21 @@
 #include <utility>
 
 namespace embedonix::simplelibs::utilities::benchmark::measure {
+    /**
+     * Measure execution time of a function in microseconds
+     * @tparam F Function Type
+     * @tparam Args Arguments Type
+     * @param func Function name
+     * @param args Arguments to the function
+     * @return
+     */
     template<typename F, typename... Args>
     double function_execution_time(F func, Args &&... args) {
-        std::chrono::high_resolution_clock::time_point t1 =
+        auto startTime =
                 std::chrono::high_resolution_clock::now();
+        // Execute the function
         func(std::forward<Args>(args)...);
-        return std::chrono::duration_cast<std::chrono::milliseconds>(
-                std::chrono::high_resolution_clock::now() - t1).count();
+        return std::chrono::duration_cast<std::chrono::microseconds>
+                (std::chrono::high_resolution_clock::now() - startTime).count();
     }
 }
