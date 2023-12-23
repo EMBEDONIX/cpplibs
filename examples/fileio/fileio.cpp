@@ -5,7 +5,7 @@
 #include <iostream>
 #include <thread>
 #include <chrono>
-
+#include <array>
 
 #include "embedonix/simplelibs/fileio/filereader.h"
 #include "embedonix/simplelibs/utilities/benchmark.h"
@@ -18,59 +18,83 @@ void sleepFunction(int milli) {
     std::this_thread::sleep_for(duration);
 }
 
-void read_file_saya(std::string path) {
+void read_file_bytes(std::string path) {
     volatile auto content = embedonix::simplelibs::fileio
     ::readers::read_file_bytes(path);
-//    sleepFunction(100);
 }
 
-void read_file_mila(std::string path, std::vector<std::byte> &buffer) {
+void read_file_bytes_caller_alloc(std::string path, std::vector<std::byte> &buffer) {
     volatile auto result = embedonix::simplelibs::fileio::readers::read_file_bytes_caller_alloc(
             path, buffer);
     if (!result) {
         exit(1);
     }
+}
 
-//    sleepFunction(100);
+void read_file(std::string path) {
+    volatile auto result = embedonix::simplelibs::fileio::readers::
+    read_file(path);
 }
 
 void read_file_string(std::string path) {
     volatile auto result = embedonix::simplelibs::fileio::readers::
-    read_file(path);
+    read_file_string(path);
 }
+
+// List of files
+constinit auto files = std::array<std::string_view, 3>{
+        "../resources/random-files/one-mb-file",
+        "../resources/random-files/two-mb-file",
+        "../resources/random-files/ten-mb-file"
+};
+
+// Number of runs for each read file function
+constinit size_t testsPerFile = 20;
 
 int main(int argc, char **argv) {
 
     // Allocate a big enough buffer for files up to 10MB
     auto buffer = std::vector<std::byte>(11'000'000);
 
-    auto fileToRead = "../resources/random-files/ten-mb-file";
+    std::cout << "Performing average duration of fileio read functions on "
+              << files.size() << " files, each file for " << testsPerFile
+              << " times" << "\n";
 
-    for (size_t i = 0; i < 10; ++i) {
-        std::cout << "read_file_bytes_caller_alloc read:\t\t" <<
+    // Benchmark all functions with three file size, each 10 times
+    for (size_t i = 0; i < files.size(); ++i) {
+        std::cout << "Benchmarking "
+                  << files[i].substr(files[i].find_last_of("/", files[i].size()) + 1)
+                  << "\n";
+
+        std::cout << "read_file_bytes_caller_alloc:\t\t" <<
                   embedonix::simplelibs::utilities::benchmark::measure::
-                  function_execution_time(read_file_mila,
-                                          fileToRead,
-                                          buffer)
-                  << std::endl;
-    }
+                  function_average_execution_time(testsPerFile,
+                                                  read_file_bytes_caller_alloc,
+                                                  files[i].data(),
+                                                  buffer)
+                  << "\n";
 
-    for (size_t i = 0; i < 10; ++i) {
-        std::cout << "read_file_bytes read:\t\t\t\t" <<
+        std::cout << "read_file_bytes:\t\t\t" <<
                   embedonix::simplelibs::utilities::benchmark::measure::
-                  function_execution_time(read_file_saya,
-                                          fileToRead)
-                  << std::endl;
-    }
+                  function_average_execution_time(testsPerFile,
+                                                  read_file_bytes,
+                                                  files[i].data())
+                  << "\n";
 
-    for (size_t i = 0; i < 10; ++i) {
-        std::cout << "read_file read:\t\t\t\t\t" <<
+        std::cout << "read_file:\t\t\t\t" <<
                   embedonix::simplelibs::utilities::benchmark::measure::
-                  function_execution_time(read_file_string,
-                                          fileToRead)
-                  << std::endl;
-    }
+                  function_average_execution_time(testsPerFile,
+                                                  read_file,
+                                                  files[i].data())
+                  << "\n";
 
+        std::cout << "read_file_string:\t\t\t" <<
+                  embedonix::simplelibs::utilities::benchmark::measure::
+                  function_average_execution_time(testsPerFile,
+                                                  read_file_string,
+                                                  files[i].data())
+                  << "\n";
+    }
 
     return 0;
 }
