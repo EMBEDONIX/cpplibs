@@ -7,14 +7,34 @@ cmake_minimum_required(VERSION 3.5...3.20)
 
 project(embedonix_simplelibs_examples VERSION 0.1.0 LANGUAGES CXX)
 
-add_executable(csvparsers
+
+# Example fileio
+add_executable(fileio
+        fileio/fileio.cpp)
+
+target_link_directories(fileio PRIVATE "F:\\Embedonix\\simplelibs-dbg")
+target_link_libraries(fileio PRIVATE embedonix_simplelibs_fileio
+        PRIVATE embedonix_simplelibs_fileio
+        PRIVATE embedonix_simplelibs_stringtools)
+target_include_directories(fileio PUBLIC "F:\\Embedonix\\simplelibs-dbg\\include")
+
+
+# Get resource dir that resides above current folder
+cmake_path(GET CMAKE_CURRENT_SOURCE_DIR PARENT_PATH RESOURCES_DIR)
+set(RANDOM_FILES_DIR "${RESOURCES_DIR}/examples/resources/random-files")
+
+install(DIRECTORY "${RANDOM_FILES_DIR}"
+        DESTINATION "${CMAKE_BINARY_DIR}/resources")
+
+# Example csvparsers
+add_executable(csvparser
         parsers/csvparser.cpp)
 
-target_link_directories(csvparsers PRIVATE "F:\\Embedonix\\simplelibs-dbg")
-target_link_libraries(csvparsers PRIVATE embedonix_simplelibs_parsers
-                                 PRIVATE embedonix_simplelibs_fileio
-                                 PRIVATE embedonix_simplelibs_stringtools)
-target_include_directories(csvparsers PUBLIC "F:\\Embedonix\\simplelibs-dbg\\include")
+target_link_directories(csvparser PRIVATE "F:\\Embedonix\\simplelibs-dbg")
+target_link_libraries(csvparser PRIVATE embedonix_simplelibs_parsers
+        PRIVATE embedonix_simplelibs_fileio
+        PRIVATE embedonix_simplelibs_stringtools)
+target_include_directories(csvparser PUBLIC "F:\\Embedonix\\simplelibs-dbg\\include")
 
 add_executable(math
         math/math.cpp)

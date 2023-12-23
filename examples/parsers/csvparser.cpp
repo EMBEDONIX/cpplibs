@@ -8,7 +8,7 @@
 #include <embedonix/simplelibs/stringtools/trim.h>
 #include <embedonix/simplelibs/stringtools/print.h>
 
-using namespace  embedonix::simplelibs;
+using namespace embedonix::simplelibs;
 
 int main(int argc, char **args) {
     std::cout << "Welcome to CSVPARSER example!" << std::endl;
@@ -23,14 +23,14 @@ int main(int argc, char **args) {
 
     for (size_t i = 0; i < data.size(); ++i) {
         for (size_t j = 0; j < data[i].size(); ++j) {
-            std::cout << "["<< i << ", " << j << "] = "
-            << stringtools::trim::both_sides_copy(data[i][j]) << " ";
+            std::cout << "[" << i << ", " << j << "] = "
+                      << stringtools::trim::both_sides_copy(data[i][j]) << " ";
         }
         std::cout << "\n";
     }
 
-    for(const auto& row : data)
-    stringtools::print::container(row, ',');
+    for (const auto &row: data)
+        stringtools::print::container(row, ',');
 
     return 0;
 }
