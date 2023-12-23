@@ -3,6 +3,8 @@
 //
 
 #include <iostream>
+#include <array>
+
 #include <embedonix/simplelibs/fileio/filereader.h>
 #include <embedonix/simplelibs/parsers/csvparser.h>
 #include <embedonix/simplelibs/stringtools/trim.h>
@@ -10,10 +12,15 @@
 
 using namespace embedonix::simplelibs;
 
+// List of files
+constinit auto files = std::array<std::string_view, 1>{
+        "../resources/csv-files/simple-no-header.csv"
+};
+
 int main(int argc, char **args) {
     std::cout << "Welcome to CSVPARSER example!" << std::endl;
-    auto content = fileio::readers::read_file("G:\\Saeid Yazdani\\Downloads\\username.csv");
-    auto data = parsers::csv_file(content, ';');
+    auto content = fileio::readers::read_file(files[0].data());
+    auto data = parsers::csv_file(content);
 
     for (auto i: data) {
         for (auto j: i) {
