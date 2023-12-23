@@ -43,8 +43,9 @@ auto read_file_bytes_caller_alloc(std::string_view filepath,
 
     if (size == 0) // avoid undefined behavior
         return false;
+    size_t countToRead = size > buffer.size() ? buffer.size() : size;
 
-    if (!ifs.read((char *) buffer.data(), buffer.size()))
+    if (!ifs.read((char *) buffer.data(), countToRead))
         throw std::ios_base::failure("Read error");
 
     return true;
