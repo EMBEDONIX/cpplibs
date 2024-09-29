@@ -4,14 +4,14 @@
 namespace embedonix::simplelibs::stringtools::trim {
 
 void left(std::string& s) {
-  s.erase(s.begin(), std::find_if(s.begin(), s.end(),
+  s.erase(s.begin(), std::ranges::find_if(s.begin(), s.end(),
                                   [](unsigned char ch) {
                                     return !std::isspace(ch);
                                   }));
 }
 
 void right(std::string& s) {
-  s.erase(std::find_if(s.rbegin(), s.rend(),
+  s.erase(std::ranges::find_if(s.rbegin(), s.rend(),
                        [](unsigned char ch) {
                          return !std::isspace(ch);
                        }).base(), s.end());

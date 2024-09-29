@@ -14,13 +14,15 @@ using namespace embedonix::simplelibs;
 
 // List of files
 constinit auto files = std::array<std::string_view, 1>{
-        "../resources/csv-files/simple-no-header.csv"
+        "../resources/csv-files/complex-escaped-with-header.csv"
 };
 
 int main(int argc, char **args) {
     std::cout << "Welcome to CSVPARSER example!" << std::endl;
     auto content = fileio::readers::read_file(files[0].data());
-    auto data = parsers::csv_file(content);
+    //auto data = parsers::csv_file(content);
+    auto data = parsers::csv_file_with_wrapper(content, ',', '"');
+
 
     for (auto i: data) {
         for (auto j: i) {
