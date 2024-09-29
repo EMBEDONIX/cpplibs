@@ -49,4 +49,29 @@ namespace embedonix::simplelibs::utilities::benchmark::measure {
         }
         return (sum / runTimes);
     }
+
+
+    /**
+     * Starts a timer for a future use
+     * @tparam Clock Type of the clock to be used
+     * @param timer time_point for the timer
+     */
+    template<typename Clock>
+    void start_timer(std::chrono::time_point<Clock>& timer) {
+        timer = Clock::now();
+    }
+
+    /**
+     * Stops a perviously set time_point and returns the duration
+     * @tparam Clock Type of the clock to be used
+     * @tparam Duration Resolution of the duration
+     * @param timer The timer object holding the start time
+     * @return
+     */
+    template<typename Clock, typename Duration = std::chrono::microseconds>
+    double stop_timer(std::chrono::time_point<Clock>& timer) {
+        return std::chrono::duration_cast<Duration>
+         (Clock::now() - timer).count();
+    }
+
 }
