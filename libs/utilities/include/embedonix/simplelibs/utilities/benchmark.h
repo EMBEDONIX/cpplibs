@@ -92,14 +92,16 @@ namespace embedonix::simplelibs::utilities::benchmark::measure {
         auto count = duration.count();
 
         // Format the output based on the duration type
-        if constexpr (std::is_same_v<Duration, milliseconds>) {
-            return std::format("{}{}ms", space ? " " : "", count);
+        if constexpr (std::is_same_v<Duration, nanoseconds>) {
+            return std::format("{}{}ns", count, space ? " " : "");
+        } else if constexpr (std::is_same_v<Duration, milliseconds>) {
+            return std::format("{}{}ms", count, space ? " " : "");
         } else if constexpr (std::is_same_v<Duration, microseconds>) {
-            return std::format("{}{}us", space ? " " : "", count);
+            return std::format("{}{}us", count, space ? " " : "");
         } else if constexpr (std::is_same_v<Duration, seconds>) {
-            return std::format("{}{}s", space ? " " : "", count);
+            return std::format("{}{}s", count, space ? " " : "");
         } else {
-            return std::format("{}{}(unknown unit)", space ? " " : "", count);
+            return std::format("{}{}(unknown unit)", count, space ? " " : "");
         }
     }
 
